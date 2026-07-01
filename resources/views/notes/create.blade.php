@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <div class="card shadow">
         <div class="card-header">
-            <h3>Create Note</h3>
+            <h3>Create a Note</h3>
         </div>
 
         <div class="card-body">
