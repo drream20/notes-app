@@ -1,60 +1,61 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-5">
-    <div class="card shadow">
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-6 px-2 sm:px-6 lg:px-8">
+    <div class="w-full max-w-xl bg-white p-6 sm:p-8 rounded-2xl shadow-md border border-gray-100">
 
-        <div class="card-header">
-            <h3>Edit Note</h3>
-        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Edit Note</h2>
 
-        <div class="card-body">
+        @if ($errors->any())
+            <div class="mb-4 bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded">
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+        <form action="{{ route('notes.update', $note) }}" method="POST" class="space-y-5">
+            @csrf
+            @method('PUT')
 
-            <form action="{{ route('notes.update', $note) }}" method="POST">
-                @csrf
-                @method('PUT')
+            <div>
+                <label class="block text-gray-700 font-semibold mb-1" for="title">Title</label>
+                <input
+                    id="title"
+                    type="text"
+                    name="title"
+                    class="block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-gray-800 py-2 px-3 text-base transition sm:text-sm"
+                    value="{{ old('title', $note->title) }}"
+                    required
+                    autocomplete="off"
+                    placeholder="Enter title">
+            </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Title</label>
+            <div>
+                <label class="block text-gray-700 font-semibold mb-1" for="content">Content</label>
+                <textarea
+                    id="content"
+                    name="content"
+                    rows="6"
+                    class="block w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-gray-800 py-2 px-3 text-base transition sm:text-sm resize-none"
+                    required
+                    placeholder="Enter your note">{{ old('content', $note->content) }}</textarea>
+            </div>
 
-                    <input
-                        type="text"
-                        name="title"
-                        class="form-control"
-                        value="{{ old('title', $note->title) }}"
-                        required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Content</label>
-
-                    <textarea
-                        name="content"
-                        rows="6"
-                        class="form-control"
-                        required>{{ old('content', $note->content) }}</textarea>
-                </div>
-
-                <button class="btn btn-success">
+            <div class="flex flex-col sm:flex-row gap-3 mt-6">
+                <button type="submit" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
                     Update Note
                 </button>
-
-                <a href="{{ route('notes.index') }}" class="btn btn-secondary">
+                <a href="{{ route('notes.index') }}"
+                   class="w-full sm:w-auto border border-gray-300 text-gray-700 hover:text-indigo-600 hover:border-indigo-400 font-semibold py-2 px-6 rounded-lg text-center transition-colors">
                     Cancel
                 </a>
+            </div>
 
-            </form>
-        </div>
+        </form>
+
     </div>
 </div>
 @endsection
