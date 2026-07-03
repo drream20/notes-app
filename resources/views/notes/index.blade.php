@@ -16,7 +16,7 @@
                 <p class="text-xs sm:text-sm text-gray-500 mt-1">Organize your thoughts efficiently.</p>
             </div>
             <a href="{{ route('notes.create') }}" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg shadow-sm transition-colors duration-200 flex justify-center items-center gap-2 text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                 </svg>
                 <span class="block">New Note</span>
@@ -28,15 +28,16 @@
             
             @forelse($notes as $note)
                 <article class="bg-white p-4 sm:p-5 rounded-xl shadow-sm border border-gray-200 hover:shadow-md hover:border-indigo-300 transition-all duration-200 flex flex-col h-56 sm:h-64">
-                    <div class="flex-grow">
+                    <div class="flex-1 flex flex-col">
                         <h2 class="text-base sm:text-lg font-semibold text-gray-800 mb-2 truncate" title="{{ $note->title }}">
                             {{ $note->title }}
                         </h2>
-                        <p class="text-gray-600 text-xs sm:text-sm leading-relaxed line-clamp-4 break-words">
+                        <p class="text-gray-600 text-xs sm:text-sm leading-relaxed line-clamp-4 wrap-break-word flex-1">
                             {{ $note->content }}
                         </p>
                     </div>
                     
+               
                     <footer class="flex flex-col sm:flex-row justify-between items-start sm:items-center text-xs text-gray-400 mt-4 pt-4 border-t border-gray-50 gap-2 sm:gap-0">
                         <span class="mb-1 sm:mb-0">{{ $note->created_at->format('M d, Y') }}</span>
                         <div class="flex items-center gap-2 sm:gap-3">
